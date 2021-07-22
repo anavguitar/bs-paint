@@ -1,20 +1,36 @@
 .app {
   display: flex;
-  height: 500px;
+  height: 800px;
+}
+
+h3 {
+  
+  font-family: 'Finger Paint', cursive;
+  font-size: 50px;
+  color: #004777;
+}
+
+.message {
+  font-family: 'Anton', sans-serif;
 }
 
 .headings {
+  margin-top: 100px;
   display: flex;
+  height: 100px;
+  margin-bottom: 50px;
+
 }
 
 .brush-selection {
-  height: 70px;
-  display: flex;
+  height: 80px;
+  flex-direction: column;
 }
 
 .paint {
-  height: 250px;
+  height: 500px;
   display: flex;
+  flex-direction: column;
 }
 
 .palette {
@@ -24,48 +40,139 @@
 
 .brush {
   display: flex;
+  justify-content: center;
+  margin-top: 10px;
 }
 
 .icon {
   width: 30px;
   height: 30px;
+  display: block;
+  margin: auto;
+
 }
 
-.current-brush, .palette-color {
+.palette-color {
   width: 30px;
   height: 30px;
   border: 1px solid black;
 }
 
-.canvas {
-  display: grid;
-  grid-template-rows: repeat(10, 1fr);
-  grid-template-columns: repeat(10, 1fr);
-  height: 300px;
-  width: 300px;
+.current-brush {
+  width: 50px;
+  height: 50px;
   border: 1px solid black;
+  display: flex;
+}
+
+.canvas {
+  margin-top: 20px;
+  display: grid;
+  grid-template-rows: repeat(45, 1fr);
+  grid-template-columns: repeat(45, 1fr);
+  height: 380px;
+  width: 780px;
+  border: 2px solid black;
+  cursor: crosshair;
 }
 
 .square {
-  transition: 0.5s;
+  transition: 0.1s;
 }
 
 .color-1 {
-
+background-color: #004777;
 }
 
 .color-2 {
-
+background-color: #A30000;
 }
 
 .color-3 {
-
+background-color: #FF7700;
 }
 
 .color-4 {
-
+background-color: #EFD28D;
 }
 
 .color-5 {
+  background-color: #00AFB5;
+}
 
+.color-6 {
+background-color: #00735c
+}
+
+.color-7 {
+background-color: hotpink;
+}
+
+.color-8 {
+background-color: gray;
+}
+
+.color-9 {
+background-color: black;
+}
+
+.color-10 {
+  background-color: white;
+}
+
+.alt-white {
+  background-color: white;
+}
+
+.alt-black {
+  background-color: black;
+}
+
+.button-row {
+  margin-top: 30px;
+  height: 100px;
+  width: 780px;
+  position: relative;
+}
+
+button {
+ height: 50px;
+  width: 150px;
+  border-radius: 20px;
+  text-align: center;
+  font-family: 'Anton', sans-serif;
+  font-size: 18px;
+  position: absolute;
+  text-transform: capitalize;
+}
+
+.dark-mode {
+  background: radial-gradient(circle, rgba(9,9,121,1) 1%, rgba(2,0,36,1) 73%);
+  color: white;
+  text-shadow: 0 0 2px powderblue;
+  visibility: visible;
+  left: 198px;
+}
+
+.light-mode {
+  background: rgba(255, 255, 255, 0.461);
+  color: white;
+  visibility: hidden;
+  left: 198px;
+}
+
+.reset {
+  background: red;
+  color: white;
+  right: 198px;
+}
+
+.easter-egg {
+  visibility: hidden;
+  display: grid;
+  grid-template-rows: repeat(45, 1fr);
+  grid-template-columns: repeat(45, 1fr);
+  height: 0px;
+  width: 0px;
+  cursor: crosshair;
 }

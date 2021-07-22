@@ -15,59 +15,161 @@
  * To make the second one happen, the number to change
  * is the first argument to `repeat`, currently set at 10.
  */
-const gridWidth = 10;
+const gridWidth = 45;
 let count = 0;
 while (count <= gridWidth * gridWidth) {
   const canvas = document.querySelector('.canvas');
   const div = document.createElement('div');
-  div.className = 'square color-5';
+  div.className = 'square color-10';
   canvas.appendChild(div);
   count++;
 }
 
-// You probably should NOT do these in the order below.
-// That is, you probably should NOT do all the queries,
-// THEN all the functions,
-// THEN all the wiring.
+// QUERIES ==========================================================
 
-// Instead, it'll be easier if you go one action at a time!
-// So, add a query for the palette colors.
-// THEN add an event listener function for what happens when one is clicked.
-// THEN wire those two together, so that when the palette elements are clicked,
-// the function runs.
-//
-// And proceed from there to getting the squares working.
-//
+// App selector
+const app = document.querySelectorAll('.app, .app > *');
+// Colors section selector
+const colorSection = document.querySelectorAll('.palette-color');
+// Brush color selector
+const brushColor = document.querySelector('.current-brush');
+// Canvas selector
+const canvas = document.querySelector('.canvas');
+// Easter Egg
+const easterEgg = document.querySelector('.easter-egg');
 
-// ALSO.
-// You do not have to follow the sections below. If you're doing your functions inline, it doesn't make a lot of sense to separate the event listener functions from their wiring!
+// Flex the app ========================================================
 
-/***********
- * QUERIES *
-***********/
+app.forEach(element => {
+  element.style.flexDirection = 'column';
+  element.style.alignItems = 'center';
+  element.style.justifyContent = 'center';
 
-// Add queries for all your squares, palette colors, and brush here.
-// (Note the singular or plural used in that sentence!)
+});
 
+// Event Listeners =====================================================
 
+// Apply selected color to the brush
+colorSection.forEach(function (color) {
+  color.addEventListener('click', function () {
+    brushColor.classList.replace(brushColor.classList.item(1), color.classList.item(1));
+  });
+});
 
-/****************************
- * EVENT LISTENER FUNCTIONS *
-****************************/
+// Apply color to canvas squares
+canvas.addEventListener('click', function (event) {
+  event.target.classList.replace(
+    event.target.classList.item(1),
+    brushColor.classList.item(1)
+  );
 
-// Now add some functions to handle clicking one particular square
-// and clicking one particular palette color. You can leave them
-// empty at first, though a console.log just to know they're being
-// run as event listeners (after the next step is set up) isn't a
-// bad idea for testing purposes.
+  // Easter egg trigger excluding dark mode
+  if (event.target.classList.item(1) === 'color-6' && h3.style.color !== 'white') {
+    
+    //Alert message to user
+    if (confirm('It looks like you are trying to draw plankton, would you like some help?')) {
+      easterEgg.style.visibility = 'visible';
+      easterEgg.style.height = '380px';
+      easterEgg.style.width = '780px';
+    }
+  }
+});
 
+// mousedown, mouseup, and mouseover events
 
+//mousedown let variable
+let mousedown = false;
 
-/**************************
- * WIRING IT ALL TOGETHER *
-**************************/
+canvas.addEventListener('mousedown', function (event) {
+  mousedown = true;
+});
 
-// Now: wiring up our event listeners to our html node elements.
-// You'll need to add the appropriate event listener for each
-// square and for each palette color from the functions you
-// wrote above.
+canvas.addEventListener('mouseup', function (event) {
+  mousedown = false;
+});
+
+canvas.addEventListener('mouseover', function (event) {
+  if (mousedown === true) {
+    event.target.classList.replace(
+      event.target.classList.item(1),
+      brushColor.classList.item(1)
+    );}
+});
+
+// Dark Mode===============================================================
+
+// Dark Mode Variables
+const darkMode = document.querySelector('.dark-mode');
+const lightMode = document.querySelector('.light-mode');
+const appBackground = document.querySelector('.app');
+const body = document.querySelector('body');
+const squares = document.querySelectorAll('.square');
+const h3 = document.querySelector('h3');
+const message = document.querySelector('.message');
+const paletteIcon = document.querySelector('.palette-icon');
+const brushIcon = document.querySelector('.brush-icon');
+
+//Dark Mode event listener
+darkMode.addEventListener('click', function () {
+    
+  for (square of squares) {
+      
+    if (square.classList.item(1) === 'color-10') {
+      
+      square.classList.replace(square.classList.item(1),'alt-black');
+      
+    } if (square.classList.item(1) === 'color-9') {
+
+      square.classList.replace(square.classList.item(1), 'alt-white');
+
+    }
+ }
+  
+  // Style Changes
+  canvas.style.border = '2px solid powderblue';
+  canvas.style.boxShadow = '0 0 10px powderblue';
+  h3.style.color = 'white';
+  h3.style.textShadow = '0 0 7px powderblue';
+  message.style.color = 'white';
+  paletteIcon.src = 'palettewhite.png';
+  brushIcon.src = 'paintbrushwhite.png';
+  appBackground.style.backgroundColor = '#08141c';
+  body.style.background = '#08141c';
+  darkMode.style.visibility = 'hidden';
+  lightMode.style.visibility = 'visible';
+
+});
+
+// Light Mode ===============================================================
+
+//Event Listener
+lightMode.addEventListener('click', function () {
+
+  for (square of squares) {
+
+    if (square.classList.item(1) === 'alt-black') {
+
+      square.classList.replace(square.classList.item(1), 'color-10');
+
+    } if (square.classList.item(1) === 'alt-white') {
+
+      square.classList.replace(square.classList.item(1), 'color-9');
+
+    }
+  }
+
+  // Style Changes
+  canvas.style.border = '2px solid black';
+  canvas.style.boxShadow = '0 0 0';
+  h3.style.color = '#004777';
+  h3.style.textShadow = '0 0 0';
+  message.style.color = 'black';
+  paletteIcon.src = 'palette.png';
+  brushIcon.src = 'paintbrush.png';
+  appBackground.style.backgroundColor = 'white';
+  body.style.background = 'white';
+  darkMode.style.visibility = 'visible';
+  lightMode.style.visibility = 'hidden';
+
+});
+
